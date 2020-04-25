@@ -1,10 +1,10 @@
 var express = require('express');
 var router = express.Router();
 
-router.get('/', (req, res) => {
+router.get('/', (req, res) =>{
     const result = {
-        status : 200,
-        message : 'api에 접근합니다.'
+        status: 200,
+        message: 'POST!!!'
     }
     res.status(200).send(result);
 });
