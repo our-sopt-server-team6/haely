@@ -17,7 +17,9 @@ var members =[
 ]
 
 console.log('members : ', members);
+
 members[0].printInfo();
+members[1].printInfo();
 
 members.forEach(
     members => console.log(members.name+'님은 별명이 '+members.nickname+'이고, 나이가 '+members.age+'세입니다')
