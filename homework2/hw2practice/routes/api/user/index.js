@@ -9,7 +9,8 @@ router.get('/', (req, res) =>{
     res.status(200).send(result);
 });
 
-router.use('/login', require('./login'));
-router.use('/signup', require('./signup'))
+// router.use('/login', require('./login'));
+// router.use('/signup', require('./signup'))
+router.use('/', require('./user'));
   
   module.exports = router;
