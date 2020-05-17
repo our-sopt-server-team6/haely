@@ -5,6 +5,9 @@ let util = require('../modules/util');
 let statusCode = require('../modules/statusCode');
 let resMessage = require('../modules/responseMessage');
 
+const encryptionManager = require('../modules/security/encryptionManager');
+const crypto = require('crypto');
+
 router.post('/signup', async (req, res) => {
     const {
       id, 
@@ -23,10 +26,16 @@ router.post('/signup', async (req, res) => {
             .send(util.fail(statusCode.BAD_REQUEST, resMessage.ALREADY_ID));
         return;
     }
+
+    const salt = (await crypto.randomBytes(32)).toString('hex');
+    const hashedPassword = encryptionManager.encryption(password, salt);
+
+
     User.push({
       id, 
       name,
-      password, 
+      hashedPassword, 
+      salt,
       email
     });
     res.status(200).send(User);
