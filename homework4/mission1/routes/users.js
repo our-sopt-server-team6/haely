@@ -68,4 +68,26 @@ router.post('/signin', async (req, res) => {
     .send(util.success(statusCode.OK, resMessage.LOGIN_SUCCESS, result));
 });
 
+router.get('/:id', async (req, res) =>{
+  const id = req.params.id;
+
+  if (!id) {
+    res.status(statusCode.BAD_REQUEST)
+        .send(util.fail(statusCode.BAD_REQUEST, resMessage.NULL_VALUE));
+    return;
+  }
+
+  const already = await User.checkUser(id);
+    if (already === false) { //no user using 'id'
+        res.status(statusCode.BAD_REQUEST)
+            .send(util.fail(statusCode.BAD_REQUEST, resMessage.NO_USER));
+        return;
+    }
+
+  const result = await User.getUserById(id);
+  res.status(statusCode.OK)
+  .send(util.success(statusCode.OK, resMessage.READ_POST_SUCCESS, result));
+
+})
+
 module.exports = router;

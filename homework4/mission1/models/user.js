@@ -58,6 +58,17 @@ const user = {
             console.log('signin ERROR : ', err);
             throw err;
         }
+    },
+
+    getUserById : async(id) =>{
+        const query = `SELECT * FROM ${table} WHERE id = "${id}"`;
+        try{
+            const result = await pool.queryParam(query);
+            return result;
+
+        } catch(err){
+            throw err;
+        }
     }
 }
 
