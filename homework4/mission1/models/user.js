@@ -1,5 +1,6 @@
 const pool = require('../modules/pool');
 const encryptionManager = require('../modules/security/encryptionManager');
+const userData = require('../modules/data/userData');
 
 const table = 'user';
 
@@ -64,7 +65,7 @@ const user = {
         const query = `SELECT * FROM ${table} WHERE id = "${id}"`;
         try{
             const result = await pool.queryParam(query);
-            return result;
+            return result.map(userData);
 
         } catch(err){
             throw err;

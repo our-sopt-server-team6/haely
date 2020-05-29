@@ -42,10 +42,14 @@ const post = {
         }
     },
 
-    create : async(author, title, content, createdAt) => {
-        const fields = 'author, title, content, createdAt';
+    create : async(authorId, title, content, createdAt) => {
+        const authorIdQuery = `SELECT userIdx FROM user WHERE id = '${authorId}'`;
+        const authorIdResult = await pool.queryParam_Parse(authorIdQuery);
+        const firstResult = authorIdResult[0].userIdx;
+
+        const fields = 'userIdx, title, content, createdAt';
         const questions = '?, ?, ?, ?';
-        const values = [author, title, content, createdAt]; 
+        const values = [firstResult, title, content, createdAt]; 
         const query = `INSERT INTO ${table}(${fields}) VALUES(${questions})`;
         try{
             const result = await pool.queryParamArr(query, values);
@@ -56,8 +60,12 @@ const post = {
     },
 
     update : async(idx, updatePost) => {
-        const fields = 'author = ?, title = ?, content = ?, createdAt = ?';
-        const values = [updatePost.author, updatePost.title, updatePost.content, updatePost.createdAt];
+        const authorIdQuery = `SELECT userIdx FROM user WHERE id = '${updatePost.authorId}'`;
+        const authorIdResult = await pool.queryParam_Parse(authorIdQuery);
+        const firstResult = authorIdResult[0].userIdx;
+
+        const fields = 'userIdx = ?, title = ?, content = ?, createdAt = ?';
+        const values = [firstResult, updatePost.title, updatePost.content, updatePost.createdAt];
         const query = `UPDATE ${table} SET ${fields} WHERE postIdx = ${idx}`;
         try{
             const result = await pool.queryParamArr(query, values);
