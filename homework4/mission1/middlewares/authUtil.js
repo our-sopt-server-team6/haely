@@ -1,7 +1,7 @@
 const jwt = require('../modules/jwt');
-const MSG = require('../modules/responseMessage');
-const CODE = require('../modules/statusCode');
-const util = require('../modules/util');
+let util = require('../modules/util');
+let statusCode = require('../modules/statusCode');
+let resMessage = require('../modules/responseMessage');
 const TOKEN_EXPIRED = -3;
 const TOKEN_INVALID = -2;
 
@@ -14,18 +14,19 @@ const authUtil = {
         var token = req.headers.token;
         
         if (!token) {
-            return res.json(util.fail(CODE.BAD_REQUEST, MSG.EMPTY_TOKEN));
+            return res.json(util.fail(statusCode.BAD_REQUEST, resMessage.EMPTY_TOKEN));
         }
         const user = jwt.verify(token);
-        // console.log(user);
-        if (user === TOKEN_EXPIRED) {
-            return res.json(util.fail(CODE.UNAUTHORIZED, MSG.EXPIRED_TOKEN));
+        // console.log((await user).valueOf(0).idx);
+        
+        if (user == TOKEN_EXPIRED) {
+            return res.json(util.fail(statusCode.UNAUTHORIZED, resMessage.EXPIRED_TOKEN));
         }
-        if (user === TOKEN_INVALID) {
-            return res.json(util.fail(CODE.UNAUTHORIZED, MSG.INVALID_TOKEN));
+        if (user == TOKEN_INVALID) {
+            return res.json(util.fail(statusCode.UNAUTHORIZED, resMessage.INVALID_TOKEN));
         }
-        if (user.idx === undefined) {
-            return res.json(util.fail(CODE.UNAUTHORIZED, MSG.INVALID_TOKEN));
+        if ((await user).valueOf(0).idx == undefined) {
+            return res.json(util.fail(statusCode.UNAUTHORIZED, resMessage.INVALID_TOKEN));
         }
         req.decoded = user;
         next();
