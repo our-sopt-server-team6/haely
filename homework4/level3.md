@@ -35,3 +35,11 @@ _[PUT] ~/post/:idx_
 _[DELETE] ~/post/:idx_
 
 ![Screen Shot 2020-05-30 at 11 30 24 PM](https://user-images.githubusercontent.com/41534832/83331272-08a2b680-a2d0-11ea-9e55-5a2213b4ed63.png)
+
+
+
+<br><br>
+
+## EC2 서버
+
+![Screen Shot 2020-05-30 at 11 30 43 PM](https://user-images.githubusercontent.com/41534832/83331296-41db2680-a2d0-11ea-9abd-6ebf703c76a9.png)
