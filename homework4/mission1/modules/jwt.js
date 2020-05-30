@@ -20,7 +20,9 @@ module.exports = {
     verify: async (token) => {
         let decoded;
         try {
+            // console.log(token);
             decoded = jwt.verify(token, secretKey);
+            console.log(decoded);
         } catch (err) {
             if (err.message === 'jwt expired') {
                 console.log('expired token');
