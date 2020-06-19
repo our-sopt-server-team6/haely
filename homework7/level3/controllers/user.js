@@ -75,10 +75,9 @@ module.exports = {
             }));
     },
     updateProfile: async (req, res) => {
-        // 데이터 받아오기
         const userIdx = req.decoded.userIdx;
-        // const profileImg = req.file.path;
         const profileImg = req.file.location;
+
         // data check - undefined
         if (profileImg === undefined || !userIdx) {
             return res.status(CODE.BAD_REQUEST).send(util.fail(CODE.BAD_REQUEST, MSG.NULL_VALUE));

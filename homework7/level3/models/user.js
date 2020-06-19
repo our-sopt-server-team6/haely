@@ -47,7 +47,7 @@ const user = {
         }
     },
     updateProfile: async (userIdx, profile) => {
-        let query = `UPDATE ${table} SET image='["${profile}"]' WHERE userIdx="${userIdx}"`;
+        let query = `UPDATE ${table} SET image=JSON_ARRAY("${profile}") WHERE userIdx="${userIdx}"`;
         try {
             await pool.queryParam(query);
             query = `SELECT id, name, email, image FROM ${table} WHERE userIdx="${userIdx}"`;
